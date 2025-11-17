@@ -1,0 +1,25 @@
+{
+  "name": "workspace_staff_manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Workspace.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elhafkhalid-tech/Workspace_Staff_Manager.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/elhafkhalid-tech/Workspace_Staff_Manager/issues"
+  },
+  "homepage": "https://github.com/elhafkhalid-tech/Workspace_Staff_Manager#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.17",
+    "tailwindcss": "^4.1.17"
+  }
+}
