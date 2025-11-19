@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link href="src/output.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Workspace.css" />
+  </head>
+  <body>
+    <main class="main">
+      <aside class="aside">
+        <div>
+          <h2 class="title-aside">Unassigned Staff</h2>
+        </div>
+        <button id="AddNewWorker" class="AddNewWorker">+ Add New Worker</button>
+        <div id="container-unssigned-workers">
+          <!-- container workers unssigned-->
+        </div>
+      </aside>
+      <section class="section">
+        <div class="container-left">
+          <div class="container-w letf-top">
+            <div class="header-assigned">
+              <h3>conference Room</h3>
+              <button>+</button>
+            </div>
+            <div id="conference">
+              <!-- container-workers-conference -->
+            </div>
+          </div>
+          <div class="container-w left-bottom">
+            <div class="header-assigned">
+              <h3>reception Room</h3>
+              <button>+</button>
+            </div>
+            <div id="reception">
+              <!-- container-workers-reception -->
+            </div>
+          </div>
+        </div>
+        <div class="container-rigth">
+          <div class="top-right">
+            <div class="container-w">
+              <div class="header-assigned">
+                <h3>servers Room</h3>
+                <button>+</button>
+              </div>
+              <div id="service">
+                <!-- container-service -->
+
+              </div>
+            </div>
+            <div class="container-w">
+              <div class="header-assigned">
+                <h3>security Room</h3>
+                <button>+</button>
+              </div>
+              <div id="security">
+                <!-- container-security -->
+              </div>
+            </div>
+          </div>
+          <div class="h-espace"></div>
+          <div class="bottom-right">
+            <div class="container-w">
+              <div class="header-assigned">
+                <h3>staff Room</h3>
+                <button>+</button>
+              </div>
+              <div id="staff">
+                <!-- container-staff -->
+              </div>
+            </div>
+            <div class="container-w">
+              <div class="header-assigned">
+                <h3>vault Room</h3>
+                <button>+</button>
+              </div>
+              <div id="vault">
+                <!-- container-Vault -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div id="container-form" class="container-form">
+      <button id="close" class="close">X</button>
+      <form class="form">
+        <div class="modal">
+          <label>Name</label>
+          <input id="input-name" type="text" />
+        </div>
+        <div class="modal">
+          <label for="">Role</label>
+          <select name="" id="select-role">
+            <option value="Reception">Reception</option>
+            <option value="IT">IT</option>
+            <option value="Security">Security</option>
+            <option value="Cleaning">Cleaning</option>
+          </select>
+        </div>
+        <div class="modal">
+          <label for="">Photo (URL)</label>
+          <input id="url" type="url" />
+        </div>
+        <img id="img-url" src="" alt="img" />
+        <div class="modal">
+           <label for="">email</label>
+           <input id="email" type="email">
+        </div>
+        <div class="modal">
+           <label for="">Phone</label>
+           <input  id="phone" type="text">
+        </div>
+        <div class="form" id="experience-container">
+          <!-- container_experience -->
+        </div>
+      </form>
+      <div class="form-buttons">
+        <button id="Add_experience" class="button">Add experience</button>
+        <button id="valider" class="button">Valider</button>
+      </div>
+    </div>
+    <script src="Workspace.js"></script>
+  </body>
+</html>
