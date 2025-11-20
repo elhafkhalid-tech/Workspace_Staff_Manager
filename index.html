@@ -48,7 +48,6 @@
               </div>
               <div id="service">
                 <!-- container-service -->
-
               </div>
             </div>
             <div class="container-w">
@@ -88,40 +87,46 @@
     <div id="container-form" class="container-form">
       <button id="close" class="close">X</button>
       <form class="form">
-        <div class="modal">
-          <label>Name</label>
-          <input id="input-name" type="text" />
+        <div class="form">
+          <div class="modal">
+            <label>Name</label>
+            <input id="input-name" type="text" />
+          </div>
+          <div class="modal">
+            <label for="">Role</label>
+            <select name="" id="select-role">
+              <option value="Reception">Reception</option>
+              <option value="IT">IT</option>
+              <option value="Security">Security</option>
+              <option value="Cleaning">Cleaning</option>
+            </select>
+          </div>
+          <div class="modal">
+            <label for="">Photo (URL)</label>
+            <input id="url" type="url" />
+          </div>
+          <img id="img-url" src="" alt="img" />
+          <div class="modal">
+            <label for="">email</label>
+            <input id="email" type="email" />
+          </div>
+          <div class="modal">
+            <label for="">Phone</label>
+            <input id="phone" type="text" />
+          </div>
         </div>
-        <div class="modal">
-          <label for="">Role</label>
-          <select name="" id="select-role">
-            <option value="Reception">Reception</option>
-            <option value="IT">IT</option>
-            <option value="Security">Security</option>
-            <option value="Cleaning">Cleaning</option>
-          </select>
-        </div>
-        <div class="modal">
-          <label for="">Photo (URL)</label>
-          <input id="url" type="url" />
-        </div>
-        <img id="img-url" src="" alt="img" />
-        <div class="modal">
-           <label for="">email</label>
-           <input id="email" type="email">
-        </div>
-        <div class="modal">
-           <label for="">Phone</label>
-           <input  id="phone" type="text">
-        </div>
-        <div class="form" id="experience-container">
+        <div class="form" id="container-experience">
           <!-- container_experience -->
         </div>
       </form>
+
       <div class="form-buttons">
         <button id="Add_experience" class="button">Add experience</button>
         <button id="valider" class="button">Valider</button>
       </div>
+    </div>
+    <div id="view-details" class="container-details">
+      <!-- container view -->
     </div>
     <script src="Workspace.js"></script>
   </body>
