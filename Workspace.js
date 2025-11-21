@@ -1,4 +1,3 @@
-
 // array global
 const workers = getData();
 
@@ -12,6 +11,7 @@ const valider = document.getElementById("valider");
 const container_unssigned_workers = document.getElementById(
   "container-unssigned-workers"
 );
+const all_workers = document.getElementById("all-workers");
 const container_experiences = document.getElementById("container-experience");
 const conference = document.getElementById("conference");
 const reception = document.getElementById("reception");
@@ -33,14 +33,15 @@ const inputPhone = document.getElementById("phone");
 
 setAsideFull();
 
+DisplayAllWorkers();
+
 function getData() {
   let workerData = localStorage.getItem("myLocal");
   return workerData ? JSON.parse(workerData) : [];
 }
 
-function setAsideFull()
-{ 
-    workers.forEach((worker, index) => {
+function setAsideFull() {
+  workers.forEach((worker, index) => {
     createUnssigned(worker, index);
     const view = document.getElementById(index);
     view.addEventListener("click", () => {
@@ -99,8 +100,8 @@ function createUnssigned(worker, index) {
       <div class="img-nom-role">
         <img id="img" src="${worker.img}" alt="Img" />
         <div>
-          <p>${worker.name}</p>
-          <span>${worker.role}</span>
+          <p style="font-size: 14px;">${worker.name}</p>
+          <span style="font-size: 12px;">${worker.role}</span>
         </div>
       </div>
       <button class="view-btn" id="${index}">view</button>
@@ -128,7 +129,9 @@ function createAssigned(room) {
 
 // Create experience
 function createExperience() {
-  container_experiences.innerHTML += ` <div class = "experience-form" id="experience-form"> 
+  const div = document.createElement("div");
+  div.className = "experience-form";
+  div.innerHTML = ` 
     <div class = "close_experience"> 
       <button>X</button>
     </div>
@@ -148,10 +151,13 @@ function createExperience() {
       <label>To</label>
       <input id="to" type="date" />
     </div>
-    </div>
     </br>
   `;
-  const close_experience = document.getElementById();
+  container_experiences.append(div);
+  const btnClose = div.querySelector(".close_experience button");
+  btnClose.addEventListener("click", () => {
+    div.remove();
+  });
 }
 
 // Events
@@ -180,7 +186,7 @@ valider.addEventListener("click", () => {
   const email = inputEmail.value;
   const phone = inputPhone.value;
   // const id = Math.random();
-
+  
   let experiences = [];
   const experience_form = document.querySelectorAll(".experience-form");
   
@@ -192,13 +198,14 @@ valider.addEventListener("click", () => {
     experiences.push({ company, role_exp, from, to });
   });
   
-  const worker = { img, name, role, email, phone, experiences };
+  // let id = unique
+  const worker = { id , img, name, role, email, phone, experiences };
   workers.push(worker);
-  localStorage.setItem('myLocal',JSON.stringify(workers));
+  localStorage.setItem("myLocal", JSON.stringify(workers));
   
   if (img && name && role && email && phone)
     createUnssigned(worker, workers.length - 1);
-
+  
   const view = document.getElementById(workers.length - 1);
   view.addEventListener("click", () => {
     afficherView(worker);
@@ -206,3 +213,44 @@ valider.addEventListener("click", () => {
   
   form.style.display = "none";
 });
+
+function fillContainerAllWorkers(worker, index) {
+  const div = document.createElement("div");
+  div.className = "unssigned-article";
+  div.innerHTML = `
+    <article class="article">
+      <div class="img-nom-role">
+        <img id="img" src="${worker.img}" alt="Img" />
+        <div>
+          <p style="font-size: 14px;">${worker.name}</p>
+          <span style="font-size: 12px;">${worker.role}</span>
+        </div>
+      </div>
+      <button class="move-btn" id="${index}" onclick = "test('${worker.id}')">move</button>
+    </article>
+  `;
+  document.getElementById("btn-workers").addEventListener("click", () => {
+    document.getElementById("all-workers").style.display = "none";
+    location.reload();
+  });
+  document.getElementById("all-workers").appendChild(div);
+}
+
+function DisplayAllWorkers() {
+  const btnsRooms = document.querySelectorAll(".header-assigned button");
+  btnsRooms.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      all_workers.style.display = "block";
+      workers.forEach((worker, index) => {
+        fillContainerAllWorkers(worker, index);
+      });
+    });
+    
+  });
+}
+
+function test(id)
+{
+   
+}
+

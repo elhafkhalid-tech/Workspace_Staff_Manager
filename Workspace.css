@@ -125,7 +125,7 @@ body {
 }
 
 .unssigned-article {
-  border: 1px dashed gray;
+  border: 2px solid rgb(11, 11, 11);
   border-radius: 5px;
   margin-bottom: 5px;
 }
@@ -160,10 +160,10 @@ form img {
   flex-direction: column;
   gap: 1rem;
   padding: 1rem;
- justify-content: center;
+  justify-content: center;
 }
 
-.experience-form{
+.experience-form {
   border: 2px solid rgb(22, 22, 22);
   border-radius: 5px;
   padding: 10px;
@@ -173,7 +173,7 @@ form img {
 }
 
 .container-form,
-.container-details {
+.container-details,.container-all-workers {
   display: none;
   background-color: rgb(4, 150, 158);
   border-radius: 10px;
@@ -187,27 +187,30 @@ form img {
   max-height: 550px;
   overflow: auto;
 }
-.container-details .buttonView {
+.container-details .buttonView{
   color: red;
-  text-align:right;
+  text-align: right;
   margin-bottom: 5px;
   margin-right: 8px;
   font-size: 23px;
 }
+
 .buttonView button {
   cursor: pointer;
 }
-.close_experience{
+.close_experience,.btn-workers {
   color: red;
   font-size: 20px;
   cursor: pointer;
   text-align: right;
 }
-.close_experience button{
- cursor: pointer;
+.close_experience button,.btn-workers button {
+  margin-bottom: 10px;
+  margin-right: 8px;
+  cursor: pointer;
 }
 
-.exp-worker{
+.exp-worker {
   margin-top: 20px;
   padding: 10px;
   background-color: rgb(6, 133, 133);
@@ -306,4 +309,17 @@ select {
   .h-espace {
     height: 0;
   }
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
+  .aside {
+  background-color: white;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
 }
