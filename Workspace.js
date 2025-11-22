@@ -1,18 +1,11 @@
 // array global
 const workers = getData();
-
-// get buttons
-const addNewWorker = document.getElementById("AddNewWorker");
-const closeForm = document.getElementById("close");
-const addExperience = document.getElementById("Add_experience");
-const valider = document.getElementById("valider");
-
+let selectedRoom = null;
 // get other elements
 const container_unssigned_workers = document.getElementById(
   "container-unssigned-workers"
 );
 const all_workers = document.getElementById("all-workers");
-const container_experiences = document.getElementById("container-experience");
 const conference = document.getElementById("conference");
 const reception = document.getElementById("reception");
 const service = document.getElementById("service");
@@ -22,18 +15,13 @@ const vault = document.getElementById("vault");
 const form = document.getElementById("container-form");
 const photoUrl = document.getElementById("url-img");
 const imgAddWorker = document.getElementById("img-add-worker");
-const img_url = document.getElementById("img-url");
 
-// inputs
 const inputUrl = document.getElementById("url");
-const inputName = document.getElementById("input-name");
-const inputRole = document.getElementById("select-role");
-const inputEmail = document.getElementById("email");
-const inputPhone = document.getElementById("phone");
+let img_url = document.getElementById("img-url");
 
 setAsideFull();
 
-DisplayAllWorkers();
+addListenerToBtnsRooms();
 
 function getData() {
   let workerData = localStorage.getItem("myLocal");
@@ -44,9 +32,9 @@ function setAsideFull() {
   workers.forEach((worker, index) => {
     createUnssigned(worker, index);
     const view = document.getElementById(index);
-    view.addEventListener("click", () => {
-      afficherView(worker);
-    });
+    view.addEventListener('click',()=>{
+       afficherView(worker);
+    })
   });
 }
 
@@ -96,7 +84,7 @@ function createUnssigned(worker, index) {
   const div = document.createElement("div");
   div.className = "unssigned-article";
   div.innerHTML = `
-    <article class="article">
+    <article class="article" >
       <div class="img-nom-role">
         <img id="img" src="${worker.img}" alt="Img" />
         <div>
@@ -104,27 +92,10 @@ function createUnssigned(worker, index) {
           <span style="font-size: 12px;">${worker.role}</span>
         </div>
       </div>
-      <button class="view-btn" id="${index}">view</button>
+      <button class="view-btn" id="${index}">view</button> 
     </article>
   `;
-  container_unssigned_workers.appendChild(div);
-}
-
-// Create assigned worker
-function createAssigned(room) {
-  const div_assigned = document.createElement("div");
-  room.innerHTML += `
-    <div class="assigned-article">
-      <article class="article">
-        <img src="img/test.png" alt="Img" />
-        <div>
-          <p>nom</p>
-          <span>role</span>
-        </div>
-      </article>
-      <button>X</button>
-    </div>
-  `;
+  container_unssigned_workers.append(div);
 }
 
 // Create experience
@@ -153,7 +124,7 @@ function createExperience() {
     </div>
     </br>
   `;
-  container_experiences.append(div);
+  document.getElementById("container-experience").append(div);
   const btnClose = div.querySelector(".close_experience button");
   btnClose.addEventListener("click", () => {
     div.remove();
@@ -161,17 +132,17 @@ function createExperience() {
 }
 
 // Events
-addNewWorker.addEventListener("click", () => {
+document.getElementById("AddNewWorker").addEventListener("click", () => {
   form.style.display = "block";
   inputUrl.value = "";
   img_url.src = "";
 });
 
-closeForm.addEventListener("click", () => {
+document.getElementById("close").addEventListener("click", () => {
   form.style.display = "none";
 });
 
-addExperience.addEventListener("click", () => {
+document.getElementById("Add_experience").addEventListener("click", () => {
   createExperience();
 });
 
@@ -179,45 +150,54 @@ inputUrl.addEventListener("input", () => {
   img_url.src = inputUrl.value;
 });
 
-valider.addEventListener("click", () => {
-  const name = inputName.value;
-  const img = inputUrl.value;
-  const role = inputRole.value;
-  const email = inputEmail.value;
-  const phone = inputPhone.value;
-  // const id = Math.random();
-  
+document.getElementById("valider").addEventListener("click", () => {
+  const name = document.getElementById("input-name").value;
+  const img = img_url.src;
+  const role = document.getElementById("select-role").value;
+  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
+  const id = Math.random();
+
   let experiences = [];
   const experience_form = document.querySelectorAll(".experience-form");
-  
-  experience_form.forEach(() => {
-    const company = document.getElementById("company").value;
-    const role_exp = document.getElementById("exp-role").value;
-    const from = document.getElementById("from").value;
-    const to = document.getElementById("to").value;
+
+  experience_form.forEach((ex) => {
+    let company = ex.querySelector("#company").value;
+    let role_exp = ex.querySelector("#exp-role").value;
+    let from = ex.querySelector("#from").value;
+    let to = ex.querySelector("#to").value;
     experiences.push({ company, role_exp, from, to });
+    ex.remove();
   });
-  
-  // let id = unique
-  const worker = { id , img, name, role, email, phone, experiences };
-  workers.push(worker);
-  localStorage.setItem("myLocal", JSON.stringify(workers));
-  
-  if (img && name && role && email && phone)
+
+  const worker = { id, img, name, role, email, phone, experiences };
+
+  if (img && name && role && email && phone) {
+    workers.push(worker);
+    // console.log(workers);
+    localStorage.setItem("myLocal", JSON.stringify(workers));
     createUnssigned(worker, workers.length - 1);
+  }
   
   const view = document.getElementById(workers.length - 1);
+  //console.log(view);
+
   view.addEventListener("click", () => {
     afficherView(worker);
   });
-  
+  document.getElementById("form").reset();
   form.style.display = "none";
 });
 
-function fillContainerAllWorkers(worker, index) {
-  const div = document.createElement("div");
-  div.className = "unssigned-article";
-  div.innerHTML = `
+function fillContainerAllWorkers(workers) {
+  document.getElementById("all-workers").innerHTML = ` <div class="btn-workers">
+        <button id="btn-workers">X</button>
+    </div> `;
+  //functionFiltrage
+  workers.forEach((worker) => {
+    const div = document.createElement("div");
+    div.className = "unssigned-article";
+    div.innerHTML = `
     <article class="article">
       <div class="img-nom-role">
         <img id="img" src="${worker.img}" alt="Img" />
@@ -226,31 +206,69 @@ function fillContainerAllWorkers(worker, index) {
           <span style="font-size: 12px;">${worker.role}</span>
         </div>
       </div>
-      <button class="move-btn" id="${index}" onclick = "test('${worker.id}')">move</button>
+      <button class="move-btn">move</button>
     </article>
   `;
+    document.getElementById("all-workers").appendChild(div);
+    
+    const moveBtn = div.querySelector(".move-btn");
+    moveBtn.addEventListener("click", () => {
+      if (isAssigned(worker.role, selectedRoom)) {
+        afectAssigned(worker, selectedRoom);
+      } else {
+        alert("this worker can not be assignd in this room");
+      }
+    });
+  });
   document.getElementById("btn-workers").addEventListener("click", () => {
     document.getElementById("all-workers").style.display = "none";
-    location.reload();
   });
-  document.getElementById("all-workers").appendChild(div);
 }
 
-function DisplayAllWorkers() {
+function addListenerToBtnsRooms() {
   const btnsRooms = document.querySelectorAll(".header-assigned button");
   btnsRooms.forEach((btn) => {
     btn.addEventListener("click", () => {
       all_workers.style.display = "block";
-      workers.forEach((worker, index) => {
-        fillContainerAllWorkers(worker, index);
-      });
+      selectedRoom = btn.parentElement.nextElementSibling.id;
+      //console.log(selectedRoom);
+      //console.log(workers);
+      fillContainerAllWorkers(workers);
     });
-    
   });
 }
 
-function test(id)
-{
-   
+function isAssigned(role, room) {
+  switch (room) {
+    case "reception":
+      return role === "Receptionist" || role === "Manager" || role === "Cleaning";
+    case "servers":
+      return role === "It" || role === "Manager" || role === "Cleaning";
+    case "security":
+      return role === "Security" || role === "Manager" || role === "Cleaning";
+    case "vault":
+      return role !== "Cleaning";
+    default:
+      return role === "Manager" || role === "Cleaning";
+  }
 }
 
+function afectAssigned(worker, selectedRoom) {
+  const room = document.getElementById(selectedRoom);
+
+  const div = document.createElement("div");
+  div.className = "assigned-article";
+
+  div.innerHTML = `
+    <article class="article">
+      <img src="${worker.img}" alt="Img" />
+      <div>
+        <p>${worker.name}</p>
+        <span>${worker.role}</span>
+      </div>
+    </article>
+    <button class="remove-btn">X</button>
+  `;
+
+  room.appendChild(div);
+}

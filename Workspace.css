@@ -201,7 +201,6 @@ form img {
 .close_experience,.btn-workers {
   color: red;
   font-size: 20px;
-  cursor: pointer;
   text-align: right;
 }
 .close_experience button,.btn-workers button {
@@ -261,6 +260,7 @@ select {
 .worker-modal {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   padding: 20px;
   border: 1px solid #ccc;
