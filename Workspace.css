@@ -4,17 +4,18 @@
 
 body {
   margin: 0.5rem;
-  background-color: rgb(3, 128, 135);
+  background-color: rgb(30, 103, 107);
 }
 
 .aside {
   background-color: white;
-  width: 350px;
-  padding: 1rem;
+  width: 450px;
+  padding: 0.5rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
+  max-height: 610px;
 }
 
 .title-aside {
@@ -37,7 +38,6 @@ body {
 
 .section {
   width: 100%;
-  height: 100%;
   display: flex;
   border-radius: 10px;
   padding: 0.5rem;
@@ -53,7 +53,7 @@ body {
 }
 
 .container-rigth {
-  width: 46%;
+  width: 60%;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -62,17 +62,13 @@ body {
 .top-right {
   display: flex;
   gap: 0.5rem;
-  height: 280px;
+  height: 290px;
 }
 
 .bottom-right {
   display: flex;
   gap: 0.5rem;
   height: 280px;
-}
-
-.h-espace {
-  height: 20%;
 }
 
 .container-w {
@@ -86,11 +82,11 @@ body {
 }
 
 .letf-top {
-  height: 200px;
+  height: 240px;
 }
 
 .left-bottom {
-  height: 370px;
+  height: 340px;
 }
 
 .header-assigned {
@@ -116,7 +112,7 @@ body {
 }
 
 .assigned-article {
-  border: 1px dashed gray;
+  border: 2px solid rgb(10, 10, 10);
   display: flex;
   justify-content: space-between;
   padding: 0 0.5rem;
@@ -178,9 +174,9 @@ form img {
   background-color: rgb(4, 150, 158);
   border-radius: 10px;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 8%;
+  left: 30%;
+  /* transform: translate(-50%, -50%); */
   z-index: 100;
   width: 40%;
   padding: 1rem;
