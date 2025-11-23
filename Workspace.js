@@ -17,23 +17,25 @@ setAsideFull();
 
 addListenerToBtnsRooms();
 
-refrech();
+aficherRooms(workers);
 
-function refrech() {
-  workers.forEach((worker) => {
-    worker.isAssigned = false;
-  });
-}
+// function refrech() {
+//   workers.forEach((worker) => {
+//     worker.location = false;
+//   });
+// }
+
 function getData() {
   let workerData = localStorage.getItem("myLocal");
   return workerData ? JSON.parse(workerData) : [];
 }
 
 function setAsideFull() {
-  workers.forEach((worker) => {
+  let filtered = workers.filter((worker) => !worker.location);
+  filtered.forEach((worker) => {
     createUnssigned(worker);
     const view = document.getElementById(`${worker.id}`);
-    view.querySelector('.view-btn').addEventListener("click", () => {
+    view.querySelector(".view-btn").addEventListener("click", () => {
       afficherView(worker);
     });
   });
@@ -135,10 +137,10 @@ function createExperience() {
 
 // Events
 document.getElementById("AddNewWorker").addEventListener("click", () => {
-  if (workers.length >= 8) {
-    document.getElementById("AddNewWorker").style.display = "none";
-    return;
-  }
+  // if (workers.length >= 8) {
+  //   document.getElementById("AddNewWorker").style.display = "none";
+  //   return;
+  // }
   form.style.display = "block";
   inputUrl.value = "";
   img_url.src = "";
@@ -180,36 +182,40 @@ document.getElementById("valider").addEventListener("click", () => {
     img,
     name,
     role,
+    location: null,
     email,
     phone,
     experiences,
-    isAssigned: false,
+    // location: false,
   };
 
   if (img && name && role && email && phone) {
     // console.log(workers);
     workers.push(worker);
-    createUnssigned(worker, workers.length - 1);
+    createUnssigned(worker);
     localStorage.setItem("myLocal", JSON.stringify(workers));
   }
-  
+
   const view = document.getElementById(`${worker.id}`);
   //console.log(view);
-  
-  view.querySelector('.view-btn').addEventListener("click", () => {
+
+  view.querySelector(".view-btn").addEventListener("click", () => {
     afficherView(worker);
   });
   document.getElementById("form").reset();
   form.style.display = "none";
 });
 
-function fillContainerAllWorkers(workers) {
+function fillContainerAllWorkers(workers, room) {
   document.getElementById("all-workers").innerHTML = ` <div class="btn-workers">
         <button id="close-all-workers">X</button>
     </div> `;
   //functionFiltrage
-  workers.forEach((worker) => {
-    if (worker.isAssigned) return;
+  let filtered = workers.filter(
+    (worker) => !worker.location && checkWorker(worker.role, room)
+  );
+  filtered.forEach((worker) => {
+    // if (worker.location) return;
     const div = document.createElement("div");
     div.className = "unssigned-article";
     div.innerHTML = `
@@ -225,21 +231,19 @@ function fillContainerAllWorkers(workers) {
     </article>
   `;
     document.getElementById("all-workers").appendChild(div);
-    
+
     const moveBtn = div.querySelector(".move-btn");
     moveBtn.addEventListener("click", () => {
       if (checkWorker(worker.role, selectedRoom)) {
         afectWorker(worker, selectedRoom);
         div.remove();
         document.getElementById(`${worker.id}`).remove();
-        worker.isAssigned = true;
+        worker.location = selectedRoom;
         localStorage.setItem("myLocal", JSON.stringify(workers));
-      } else {
-        alert("this worker can not be assignd in this room");
       }
     });
   });
-  
+
   document.getElementById("close-all-workers").addEventListener("click", () => {
     document.getElementById("all-workers").style.display = "none";
   });
@@ -251,9 +255,7 @@ function addListenerToBtnsRooms() {
     btn.addEventListener("click", () => {
       all_workers.style.display = "block";
       selectedRoom = btn.parentElement.nextElementSibling.id;
-      //console.log(selectedRoom);
-      //console.log(workers);
-      fillContainerAllWorkers(workers);
+      fillContainerAllWorkers(workers, selectedRoom);
     });
   });
 }
@@ -276,11 +278,22 @@ function checkWorker(role, room) {
 }
 
 function afectWorker(worker, selectedRoom) {
-  const room = document.getElementById(selectedRoom);
-  const div = document.createElement("div");
-  div.className = "assigned-article";
+  worker.location = selectedRoom;
+  aficherRooms(workers);
+}
 
-  div.innerHTML = `
+function aficherRooms(workers) {
+  const rooms = document.querySelectorAll(".container-w");
+  rooms.forEach((room) => {
+    room.children[1].innerHTML = "";
+    let filtered = workers.filter(
+      (worker) => worker.location == room.children[1].id
+    );
+    filtered.forEach((worker) => {
+      let div = document.createElement("div");
+      div.className = "assigned-article";
+
+      div.innerHTML = `
     <article class="article">
       <img src="${worker.img}" alt="Img" />
       <div>
@@ -288,19 +301,20 @@ function afectWorker(worker, selectedRoom) {
         <span>${worker.role}</span>
       </div>
     </article>
-    <button class="return-to-unssigned">X</button>
+    <button id="${worker.id}" class="return-to-unssigned">X</button>
   `;
-
-  
-  room.appendChild(div);
-  worker.isAssigned = true;
-  const moveWorkerToAside = div.querySelector('.return-to-unssigned');
-  console.log(moveWorkerToAside);
-  
-  moveWorkerToAside.addEventListener('click',()=>{
-    createUnssigned(worker);
-    div.remove();
-    worker.isAssigned = false;
-  })
-  localStorage.setItem("myLocal", JSON.stringify(workers));
+      room.children[1].appendChild(div);
+      const moveWorkerToAside = div.querySelector(".return-to-unssigned");
+      moveWorkerToAside.addEventListener("click", () => {
+        div.remove();
+        let foundindex = workers.findIndex(
+          (worker) => worker.id == moveWorkerToAside.id
+        );
+        workers[foundindex].location = null;
+        localStorage.setItem("myLocal", JSON.stringify(workers));
+        container_unssigned_workers.innerHTML = "";
+        setAsideFull();
+      });
+    });
+  });
 }
