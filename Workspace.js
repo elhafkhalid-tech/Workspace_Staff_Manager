@@ -291,6 +291,7 @@ function afectWorker(worker, selectedRoom) {
     <button class="return-to-unssigned">X</button>
   `;
 
+  
   room.appendChild(div);
   worker.isAssigned = true;
   const moveWorkerToAside = div.querySelector('.return-to-unssigned');
