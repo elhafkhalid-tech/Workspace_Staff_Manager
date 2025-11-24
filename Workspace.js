@@ -9,7 +9,6 @@ const all_workers = document.getElementById("all-workers");
 const form = document.getElementById("container-form");
 const photoUrl = document.getElementById("url-img");
 const imgAddWorker = document.getElementById("img-add-worker");
-
 const inputUrl = document.getElementById("url");
 let img_url = document.getElementById("img-url");
 
@@ -273,7 +272,7 @@ function checkWorker(role, room) {
     case "vault":
       return role !== "Cleaning";
     default:
-      return role === "Manager" || role === "Cleaning";
+      return true;
   }
 }
 
