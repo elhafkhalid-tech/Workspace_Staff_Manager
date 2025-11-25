@@ -1,4 +1,3 @@
-
 const workers = getData();
 let selectedRoom = null;
 
@@ -47,11 +46,11 @@ function afficherView(worker) {
         <p><b>Phone : </b>${worker.phone}</p>
       </div>
     </div>
-    <div id="exp-worker" ">
-    
+    <div id="exp-worker">
+      
     </div>
   `;
-
+  
   //console.log(container_details);
   worker.experiences.forEach((ex) => {
     const exp_worker = document.getElementById("exp-worker");
@@ -82,7 +81,7 @@ function createUnssigned(worker) {
       <div class="img-nom-role">
         <img id="img" src="${worker.img}" alt="Img" />
         <div>
-          <p style="font-size: 14px;">${worker.name}</p>
+          <p>${worker.name}</p>
           <span style="font-size: 12px;">${worker.role}</span>
         </div>
       </div>
@@ -117,7 +116,8 @@ function createExperience() {
     </div>
     </br>
   `;
-  document.getElementById("container-experience").append(div);
+
+  document.getElementById("container-experience").appendChild(div);
   const btnClose = div.querySelector(".close_experience button");
   btnClose.addEventListener("click", () => {
     div.remove();
@@ -148,19 +148,20 @@ document.getElementById("valider").addEventListener("click", () => {
   const role = document.getElementById("select-role").value;
   const email = document.getElementById("email").value;
   const phone = document.getElementById("phone").value;
-
+ 
   let experiences = [];
   const experiences_form = document.querySelectorAll(".experience-form");
-
+  //console.log(experiences_form);
+  
   experiences_form.forEach((ex) => {
     let company = ex.querySelector("#company").value;
     let role_exp = ex.querySelector("#exp-role").value;
     let from = ex.querySelector("#from").value;
     let to = ex.querySelector("#to").value;
     experiences.push({ company, role_exp, from, to });
-    ex.remove();
+    ex.remove(); 
   });
-
+  
   const worker = {
     id: Date.now(),
     img,
@@ -178,12 +179,12 @@ document.getElementById("valider").addEventListener("click", () => {
     workers.push(worker);
     localStorage.setItem("myLocal", JSON.stringify(workers));
   }
-
+   
   const currentWorker = document.getElementById(worker.id);
   currentWorker.querySelector(".view-btn").addEventListener("click", () => {
     afficherView(worker);
   });
-
+  
   document.getElementById("form").reset();
   form.style.display = "none";
 });
@@ -194,9 +195,9 @@ function fillContainerAllWorkers(workers, selectedRoom, btn) {
     </div> `;
 
   let filtered = workers.filter(
-    (worker) => !worker.location && checkWorker(worker.role, selectedRoom) 
+    (worker) => !worker.location && checkWorker(worker.role, selectedRoom)
   );
-   
+
   filtered.forEach((worker) => {
     const div = document.createElement("div");
     div.className = "unssigned-article";
@@ -217,10 +218,10 @@ function fillContainerAllWorkers(workers, selectedRoom, btn) {
     const moveBtn = div.querySelector(".move-btn");
     const room = document.getElementById(selectedRoom);
     moveBtn.addEventListener("click", () => {
-      if (checkWorker(worker.role, selectedRoom)  ) {
+      if (checkWorker(worker.role, selectedRoom)) {
         if (
-          room.childNodes.length < 3 ||
-          (selectedRoom === "conference" && room.childNodes.length < 4)
+          room.children.length < 3 ||
+          (selectedRoom === "conference" && room.children.length < 4)
         ) {
           afectWorker(worker, selectedRoom);
           div.remove();
@@ -306,15 +307,3 @@ function printAffect(workers) {
   });
 }
 
-// function checkExist(role, selectedRoom) {
-//   let bool = true;
-//   const room = document.getElementById(selectedRoom);
-//   room.childNodes.forEach((child) => {
-//     let myRole = child.children[0].children[1].children[1].textContent;
-//     if (role == myRole) {
-//       bool = false;
-//       return bool;
-//     }
-//   });
-//   return bool;
-// }

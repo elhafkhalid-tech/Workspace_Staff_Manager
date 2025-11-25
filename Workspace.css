@@ -44,6 +44,7 @@ body {
   border-radius: 10px;
   justify-content: space-between;
   flex-wrap: wrap;
+  margin-top: 5px;
 }
 
 .container-left {
@@ -66,7 +67,7 @@ body {
   gap: 0.5rem;
   height: 300px;
 }
- 
+
 .bottom-right {
   display: flex;
   gap: 0.5rem;
@@ -81,7 +82,9 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: white;
+  /* background-color: white; */
+  background-image: url(img/bg.jpg);
+  background-size: 100% 100%;
   padding: 0.5rem;
   border-radius: 10px;
   gap: 0.5rem;
@@ -100,6 +103,11 @@ body {
   justify-content: space-between;
 }
 
+.header-assigned h3 {
+  font-size: 15px;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+}
 .header-assigned button {
   background-color: #027738;
   border-radius: 5px;
@@ -118,18 +126,20 @@ body {
 }
 
 .assigned-article {
-  border: 2px solid rgb(10, 10, 10);
+  border: 3px solid rgb(10, 10, 10);
   display: flex;
   justify-content: space-between;
   padding: 0 0.5rem;
   border-radius: 5px;
   margin-bottom: 5px;
+  background-color: rgb(254, 254, 253);
 }
 
 .unssigned-article {
   border: 2px solid rgb(11, 11, 11);
   border-radius: 5px;
   margin-bottom: 5px;
+  
 }
 
 .article button {
@@ -175,21 +185,21 @@ form img {
 }
 
 .container-form,
-.container-details,.container-all-workers {
+.container-details,
+.container-all-workers {
   display: none;
   background-color: rgb(4, 150, 158);
   border-radius: 10px;
   position: fixed;
   top: 10%;
   left: 30%;
-  /* transform: translate(-50%, -50%); */
   z-index: 100;
   width: 40%;
   padding: 1rem;
   max-height: 550px;
   overflow: auto;
 }
-.container-details .buttonView{
+.container-details .buttonView {
   color: red;
   text-align: right;
   margin-bottom: 5px;
@@ -200,12 +210,14 @@ form img {
 .buttonView button {
   cursor: pointer;
 }
-.close_experience,.btn-workers {
+.close_experience,
+.btn-workers {
   color: red;
   font-size: 20px;
   text-align: right;
 }
-.close_experience button,.btn-workers button {
+.close_experience button,
+.btn-workers button {
   margin-bottom: 10px;
   margin-right: 8px;
   cursor: pointer;
@@ -282,6 +294,9 @@ select {
   gap: 5px;
 }
 
+#nbrExp {
+  display: none;
+}
 @media (max-width: 1215px) {
   .container-w {
     width: 100%;
@@ -313,12 +328,12 @@ select {
     flex-direction: column;
   }
   .aside {
-  background-color: white;
-  width: 100%;
-  padding: 1rem;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
+    background-color: white;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
 }
