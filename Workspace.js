@@ -194,11 +194,10 @@ function fillContainerAllWorkers(workers, selectedRoom, btn) {
     </div> `;
 
   let filtered = workers.filter(
-    (worker) => !worker.location && checkWorker(worker.role, selectedRoom)
+    (worker) => !worker.location && checkWorker(worker.role, selectedRoom) 
   );
    
   filtered.forEach((worker) => {
-    // if (worker.location) return;
     const div = document.createElement("div");
     div.className = "unssigned-article";
     div.innerHTML = `
@@ -218,7 +217,7 @@ function fillContainerAllWorkers(workers, selectedRoom, btn) {
     const moveBtn = div.querySelector(".move-btn");
     const room = document.getElementById(selectedRoom);
     moveBtn.addEventListener("click", () => {
-      if (checkWorker(worker.role, selectedRoom) ) {
+      if (checkWorker(worker.role, selectedRoom)  ) {
         if (
           room.childNodes.length < 3 ||
           (selectedRoom === "conference" && room.childNodes.length < 4)
@@ -274,7 +273,7 @@ function afectWorker(worker, selectedRoom) {
 function printAffect(workers) {
   const rooms = document.querySelectorAll(".container-w");
   rooms.forEach((room) => {
-    //room.children[1].innerHTML = "";
+    room.children[1].innerHTML = "";
     let filtered = workers.filter(
       (worker) => worker.location == room.children[1].id
     );
@@ -306,42 +305,6 @@ function printAffect(workers) {
     });
   });
 }
-
-// function printAffect(workers) {
-//   const rooms = document.querySelectorAll(".container-w");
-//   rooms.forEach((room) => {
-//     let filtered = workers.filter((worker) => {
-//       worker.location === room.children[1].id;
-//     });
-//     filtered.forEach((worker) => {
-//       let div = createElement("div");
-//       div.className = "unssigned-article";
-//       div.innerHTML = `
-//     <article class="article" >
-//       <div class="img-nom-role">
-//         <img id="img" src="${worker.img}" alt="Img" />
-//         <div>
-//           <p style="font-size: 14px;">${worker.name}</p>
-//           <span style="font-size: 12px;">${worker.role}</span>
-//         </div>
-//       </div>
-//       <button id="${worker.id}" class="return-to-aside">X</button> 
-//     </article>
-//   `;
-//     room.children[1].appendChild(div);
-//     const btnToAside = div.querySelector('.return-to-aside');
-//     btnToAside.addEventListener(('click'),()=>{
-//       div.remove();
-//       let foundIndex = workers.findIndex((worker)=>{
-//         worker.id = btnToAside.id;
-//       })
-//       workers[foundIndex].location = null;
-//       localStorage.setItem('myLocal',JSON.stringify(workers));
-//       setAsideFull();
-//     })
-//     });
-//   });
-// }
 
 // function checkExist(role, selectedRoom) {
 //   let bool = true;
