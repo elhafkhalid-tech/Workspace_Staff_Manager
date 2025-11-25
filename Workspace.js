@@ -15,6 +15,18 @@ addListenerToBtnsRooms();
 
 printAffect(workers);
 
+function validateName(nom) {
+  return /^[a-zA-Z ]+$/.test(nom.trim());
+}
+
+function validateEmail(email) {
+  return /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(email);
+}
+
+function validatePhone(phone) {
+  return /^[0-9]{10}$/.test(phone);
+}
+
 function getData() {
   let workerData = localStorage.getItem("myLocal");
   return workerData ? JSON.parse(workerData) : [];
@@ -144,11 +156,25 @@ inputUrl.addEventListener("input", () => {
 
 document.getElementById("valider").addEventListener("click", () => {
   const name = document.getElementById("input-name").value;
-  const img = inputUrl.value;
+  const img = inputUrl.value || "https:ui-avatars.com/api/?name="+ name;
   const role = document.getElementById("select-role").value;
   const email = document.getElementById("email").value;
   const phone = document.getElementById("phone").value;
-
+  
+  if(!validateName(name)) {
+    alert("invalid name")
+    return ;
+  }
+  if(!validateEmail(email))
+  {
+    alert("invalid email")
+    return ;
+  }
+  if(!validatePhone(phone))
+  {
+    alert('phone invalid');
+    return ;
+  }
   let experiences = [];
   const experiences_form = document.querySelectorAll(".experience-form");
   //console.log(experiences_form);
@@ -306,11 +332,5 @@ function printAffect(workers) {
     });
   });
 }
-
-
-
-
-
-
 
 
