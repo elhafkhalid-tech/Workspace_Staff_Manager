@@ -50,7 +50,7 @@ function afficherView(worker) {
       
     </div>
   `;
-  
+
   //console.log(container_details);
   worker.experiences.forEach((ex) => {
     const exp_worker = document.getElementById("exp-worker");
@@ -148,20 +148,20 @@ document.getElementById("valider").addEventListener("click", () => {
   const role = document.getElementById("select-role").value;
   const email = document.getElementById("email").value;
   const phone = document.getElementById("phone").value;
- 
+
   let experiences = [];
   const experiences_form = document.querySelectorAll(".experience-form");
   //console.log(experiences_form);
-  
+
   experiences_form.forEach((ex) => {
     let company = ex.querySelector("#company").value;
     let role_exp = ex.querySelector("#exp-role").value;
     let from = ex.querySelector("#from").value;
     let to = ex.querySelector("#to").value;
     experiences.push({ company, role_exp, from, to });
-    ex.remove(); 
+    ex.remove();
   });
-  
+
   const worker = {
     id: Date.now(),
     img,
@@ -179,12 +179,12 @@ document.getElementById("valider").addEventListener("click", () => {
     workers.push(worker);
     localStorage.setItem("myLocal", JSON.stringify(workers));
   }
-   
+
   const currentWorker = document.getElementById(worker.id);
   currentWorker.querySelector(".view-btn").addEventListener("click", () => {
     afficherView(worker);
   });
-  
+
   document.getElementById("form").reset();
   form.style.display = "none";
 });
@@ -306,4 +306,11 @@ function printAffect(workers) {
     });
   });
 }
+
+
+
+
+
+
+
 
